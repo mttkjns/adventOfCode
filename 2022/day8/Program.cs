@@ -26,17 +26,24 @@ for (int row = 0; row < input.Length; row++)
         //4/11
         //you're having issues when you hit the edge. No need for the "+ 1" if we've searched all the available trees.
         
-        int scenicScoreUp = input.Take(row).Select(x => x[col]).Reverse().TakeWhile(x => (x - '0') < pos).Count();
-        if (scenicScoreUp != input.Take(row).Select(x => x[col]).Count())
+        var directionUp = input.Take(row).Select(x => x[col]);
+        int scenicScoreUp = directionUp.Reverse().TakeWhile(x => (x - '0') < pos).Count();
+        if (scenicScoreUp != directionUp.Count())
             scenicScoreUp++;
-        int scenicScoreDown = input.Skip(row + 1).Select(x => x[col]).TakeWhile(x => (x - '0') < pos ).Count();
-        if (scenicScoreDown != input.Skip(row + 1).Select(x => x[col]).Count())
+        
+        var directionDown = input.Skip(row + 1).Select(x => x[col]);
+        int scenicScoreDown = directionDown.TakeWhile(x => (x - '0') < pos ).Count();
+        if (scenicScoreDown != directionDown.Count())
             scenicScoreDown++;
-        int scenicScoreLeft = input[row].Take(col).Reverse().TakeWhile(x => (x - '0') < pos ).Count();
-        if (scenicScoreLeft != input[row].Take(col).Count())
+        
+        var directionLeft = input[row].Take(col);
+        int scenicScoreLeft = directionLeft.Reverse().TakeWhile(x => (x - '0') < pos ).Count();
+        if (scenicScoreLeft != directionLeft.Count())
             scenicScoreLeft++;
-        int scenicScoreRight = input[row].Skip(col + 1).TakeWhile(x => (x - '0') < pos ).Count();
-        if (scenicScoreRight != input[row].Skip(col + 1).Count())
+
+        var directionRight = input[row].Skip(col + 1);
+        int scenicScoreRight = directionRight.TakeWhile(x => (x - '0') < pos ).Count();
+        if (scenicScoreRight != directionRight.Count())
             scenicScoreRight++;
         
         int scenicScore = scenicScoreUp * scenicScoreDown * scenicScoreLeft * scenicScoreRight;
