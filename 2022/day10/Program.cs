@@ -56,12 +56,10 @@ void Tick()
     var sprite = Enumerable.Range(x - 1, 3);
 
     int drawing = cycle % 40;
+    int onRow = cycle / 40;
 
-    if (sprite.Contains(drawing))
-        screen[cycle / 40, drawing] = '#';
-    else 
-        screen[cycle / 40, drawing] = '.';
-    
+    screen[onRow, drawing] = sprite.Contains(drawing) ? '#' : '.';
+   
     cycle++;
 }
 
