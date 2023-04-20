@@ -25,4 +25,43 @@ foreach (var opp in input)
 }
 
 Console.WriteLine(cycleStrength);
-Console.WriteLine(39 / 40);
+
+
+//part II
+x = 1;
+cycle = 0;
+var screen = new char[6,40];
+
+foreach (var opp in input)
+{
+    Tick();
+    if (opp.Length > 1)
+    {
+        Tick();
+        x += int.Parse(opp[1]);
+    }
+}
+
+for (int row = 0; row < screen.GetLength(0); row++)
+{
+    for (int col = 0; col < screen.GetLength(1); col++)
+    {
+        Console.Write(screen[row, col]);
+    }
+    Console.WriteLine();
+}
+
+void Tick()
+{
+    var sprite = Enumerable.Range(x - 1, 3);
+
+    int drawing = cycle % 40;
+
+    if (sprite.Contains(drawing))
+        screen[cycle / 40, drawing] = '#';
+    else 
+        screen[cycle / 40, drawing] = '.';
+    
+    cycle++;
+}
+
